@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambil Data Dropdown</title>
+</head>
+<body>
+    <h2>Mengambil Data Dari DropDown</h2>
+    <form id="myForm">
+        <label for="dropdown">Pilih Nama Klub:</label>
+        <select id="dropdown">
+            <option value="">-- Pilih Klub --</option>
+            <option value="Barcelona">Barcelona</option>
+            <option value="Madrid">Madrid</option>
+            <option value="Arsenal">Arsenal</option>
+            <option value="Liverpool">Liverpool</option>
+        </select>
+        <button type="button" onclick="tampilkanData()">Kirim</button>
+    </form>
+    <p id="hasil"></p>
+
+    <script>
+        function tampilkanData() {
+            const dropdown = document.getElementById("dropdown").value;
+            const hasil = document.getElementById("hasil");
+
+            if (dropdown === "") {
+                hasil.innerHTML = "Pilih klub bola terlebih dahulu!";
+            } else if (dropdown === "Barcelona") {
+                hasil.innerHTML = dropdown + " adalah klub terbaik.";
+            } else if (dropdown === "Madrid") {
+                hasil.innerHTML = dropdown + " adalah klub jagoanmu.";
+            } else if (dropdown === "Arsenal") {
+                hasil.innerHTML = dropdown + " adalah klub dari London.";
+            } else if (dropdown === "Liverpool") {
+                hasil.innerHTML = dropdown + " adalah klub yang baru saja menang EPL.";
+            }
+        }
+    </script>
+</body>
+</html>
