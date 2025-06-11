@@ -1,114 +1,223 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Kalkulator Sederhana</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(to right, #d7e1ec, #f4f4f4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+  <meta charset="UTF-8">
+  <title>Kawaii Kalkulator 🌸</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 
-        .calculator {
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 300px;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        .calculator h2 {
-            margin-bottom: 20px;
-            color: #333;
-        }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', cursive, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(145deg, #ffe0f0, #fceeff);
+      overflow: hidden;
+    }
 
-        input[type="number"], select {
-            width: 80%;
-            padding: 10px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 16px;
-        }
+    .hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
 
-        button {
-            width: 85%;
-            padding: 10px;
-            margin-top: 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    .hearts span {
+      position: absolute;
+      color: #ff7eb9;
+      font-size: 20px;
+      animation: float 6s infinite;
+    }
 
-        button:hover {
-            background-color: #45a049;
-        }
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
 
-        #hasil {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #222;
-        }
-    </style>
+    .calculator {
+      background: #fffafc;
+      padding: 30px;
+      border-radius: 30px;
+      box-shadow: 0 10px 25px rgba(255, 150, 200, 0.3);
+      width: 340px;
+      text-align: center;
+      border: 4px dotted #ffb6d9;
+      position: relative;
+      z-index: 1;
+    }
+
+    .calculator::before {
+      content: "ʕ•ᴥ•ʔﾉ♡";
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 36px;
+      color: #ff6faa;
+      /* animasi DIHAPUS */
+    }
+
+    .display {
+      background: #ffeaf5;
+      color: #ff409e;
+      font-size: 26px;
+      border: none;
+      width: 100%;
+      padding: 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      text-align: right;
+      box-shadow: inset 0 0 8px #ffddf0;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .button {
+      font-size: 20px;
+      padding: 14px;
+      border: none;
+      border-radius: 18px;
+      background-color: #ffd6ec;
+      color: #d62480;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      box-shadow: 0 4px 6px rgba(255, 145, 200, 0.3);
+    }
+
+    .button:hover {
+      background-color: #ffc0df;
+      transform: scale(1.08) rotate(-3deg);
+    }
+
+    .button:active {
+      transform: scale(0.95);
+    }
+
+    .clear {
+      background-color: #ffb3d9;
+      color: white;
+      font-weight: bold;
+    }
+
+    .clear:hover {
+      background-color: #ff8fc5;
+    }
+
+    .equal {
+      background-color: #ff69b4;
+      color: white;
+      font-weight: bold;
+      font-size: 24px;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px 5px rgba(255, 105, 180, 0.4);
+      }
+    }
+
+    .note {
+      margin-top: 18px;
+      font-family: 'Quicksand', cursive, sans-serif;
+      color: #ff69b4;
+      text-align: center;
+      font-size: 15px;
+      z-index: 1;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="calculator">
-        <h2>Kalkulator Sederhana</h2>
-        <input type="number" id="angka1" placeholder="Angka pertama">
-        <select id="operator">
-            <option value="+">+</option>
-            <option value="-">−</option>
-            <option value="*">×</option>
-            <option value="/">÷</option>
-        </select>
-        <input type="number" id="angka2" placeholder="Angka kedua">
-        <button onclick="hitung()">Hitung</button>
-        <div id="hasil"></div>
-    </div>
+<div class="hearts">
+  <span style="left: 10%;">💖</span>
+  <span style="left: 30%;">💘</span>
+  <span style="left: 50%;">💕</span>
+  <span style="left: 70%;">💓</span>
+  <span style="left: 90%;">💞</span>
+</div>
 
-    <script>
-        function hitung() {
-            var angka1 = parseFloat(document.getElementById("angka1").value);
-            var angka2 = parseFloat(document.getElementById("angka2").value);
-            var operator = document.getElementById("operator").value;
-            var hasil;
+<div class="calculator">
+  <input type="text" id="display" class="display" readonly value="0">
+  <div class="buttons">
+    <button class="button" onclick="append('7')">7</button>
+    <button class="button" onclick="append('8')">8</button>
+    <button class="button" onclick="append('9')">9</button>
+    <button class="button" onclick="append('/')">/</button>
 
-            if (isNaN(angka1) || isNaN(angka2)) {
-                document.getElementById("hasil").innerHTML = "Mohon isi kedua angka.";
-                return;
-            }
+    <button class="button" onclick="append('4')">4</button>
+    <button class="button" onclick="append('5')">5</button>
+    <button class="button" onclick="append('6')">6</button>
+    <button class="button" onclick="append('*')">×</button>
 
-            switch (operator) {
-                case '+':
-                    hasil = angka1 + angka2;
-                    break;
-                case '-':
-                    hasil = angka1 - angka2;
-                    break;
-                case '*':
-                    hasil = angka1 * angka2;
-                    break;
-                case '/':
-                    hasil = angka2 !== 0 ? (angka1 / angka2) : "Tidak bisa dibagi nol";
-                    break;
-                default:
-                    hasil = "Operator tidak dikenal";
-            }
+    <button class="button" onclick="append('1')">1</button>
+    <button class="button" onclick="append('2')">2</button>
+    <button class="button" onclick="append('3')">3</button>
+    <button class="button" onclick="append('-')">−</button>
 
-            document.getElementById("hasil").innerHTML = "Hasil: " + hasil;
-        }
-    </script>
+    <button class="button" onclick="append('0')">0</button>
+    <button class="button" onclick="append('.')">.</button>
+    <button class="button equal" onclick="calculate()">💖</button>
+    <button class="button" onclick="append('+')">+</button>
+
+    <button class="button clear" style="grid-column: span 4;" onclick="clearDisplay()">🧼 Bersihkan Semua</button>
+  </div>
+</div>
+
+<p class="note">💖 itu artinya "sama dengan" loh~ biar makin lucu dan gemas 🌸</p>
+
+<script>
+  let input = "";
+  const display = document.getElementById("display");
+
+  function append(char) {
+    if (display.value === "0" || display.value === "😵 Error!") input = "";
+    input += char;
+    display.value = input;
+  }
+
+  function calculate() {
+    try {
+      input = eval(input).toString();
+      display.value = input;
+    } catch {
+      display.value = "😵 Error!";
+      input = "";
+    }
+  }
+
+  function clearDisplay() {
+    input = "";
+    display.value = "0";
+  }
+</script>
 
 </body>
 </html>
